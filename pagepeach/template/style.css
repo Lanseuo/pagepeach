@@ -1,0 +1,32 @@
+:root {
+    --primary-color: #ffb977
+}
+
+* {
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    margin: 0;
+}
+
+nav {
+    background: var(--primary-color);
+    height: 100vh;
+    padding: 10px;
+}
+
+main {
+    padding: 10px;
+}
+
+main a {
+    color: var(--primary-color);
+}
