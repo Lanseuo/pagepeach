@@ -28,7 +28,7 @@ class Page:
 
     def content(self):
         with open(self.markdown_path, "r") as f:
-            return markdown.markdown(f.read())
+            return markdown.markdown(f.read(), extensions=["fenced_code"])
 
     def get_path(self):
         return str(self.markdown_path).replace("docs/", "").replace(".md", "")

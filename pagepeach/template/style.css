@@ -47,6 +47,35 @@ main {
     padding: 10px;
 }
 
-main a {
+main article a {
     color: var(--primary-color);
+}
+
+main article pre {
+    background: #f6f8fa;
+    padding: 10px;
+}
+
+main article pre code {
+    font-family: monospace;
+}
+
+main article h1 {
+    font-size: 2em;
+}
+
+main article h1,
+main article h2,
+main article h3,
+main article h4,
+main article h5,
+main article h6 {
+    font-weight: 400;
+}
+
+main article blockquote {
+    border-left: .25em solid #dfe2e5;
+    color: #6a737d;
+    padding: 0 1em;
+    margin: auto 0;
 }
