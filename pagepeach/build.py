@@ -16,17 +16,18 @@ class Build:
         pages = []
         for child in docs_path.iterdir():
             if child.is_dir():
-                section = Section(self.config, child)
-                pages.append(section)
+                item = Section(self.config, child)
             else:
                 if child.suffix != ".md":
                     continue
-                page = Page(self.config, child)
-                pages.append(page)
+                item = Page(self.config, child)
+
+            pages.append(item)
+
+        sitemap = [p.to_nav_dict() for p in pages]
 
         for page in pages:
-            page.save_html(dist_path)
-            print(page.to_dict())
+            page.save_html(dist_path, sitemap)
 
     def prepare_dist(self, dist_path):
         template_path = Path(os.path.realpath(__file__)).parent / "template"

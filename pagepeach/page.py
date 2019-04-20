@@ -1,5 +1,5 @@
+import jinja2
 import os
-from jinja2 import Template
 from pathlib import Path
 
 
@@ -13,12 +13,15 @@ class Page:
         with open(self.markdown_path, "r") as f:
             return f.read()
 
-    def generate_html(self):
+    def generate_html(self, sitemap):
         template_path = Path(os.path.realpath(__file__)).parent / "template"
-        with open(template_path / "index.html", "r") as f:
-            template = Template(f.read())
 
-        return template.render(nav=self.nav, title=self.title())
+        template_loader = jinja2.FileSystemLoader(searchpath=str(template_path))
+        template_env = jinja2.Environment(loader=template_loader)
+
+        template = template_env.get_template("index.html")
+
+        return template.render(sitemap=sitemap, title=self.title())
 
     def title(self):
         return "Title"
@@ -26,7 +29,7 @@ class Page:
     def get_path(self):
         return str(self.markdown_path).replace("docs/", "").replace(".md", "")
 
-    def save_html(self, dist_path):
+    def save_html(self, dist_path, sitemap):
         html_path = Path(dist_path / (self.get_path() + ".html"))
 
         if "/" in self.get_path():
@@ -34,14 +37,13 @@ class Page:
             folder.mkdir(exist_ok=True)
 
         with open(html_path, "w") as f:
-            f.write(self.generate_html())
+            f.write(self.generate_html(sitemap))
 
-    def to_dict(self):
+    def to_nav_dict(self):
         return {
             "type": "page",
             "title": self.title(),
-            "path": self.get_path(),
-            "content": self.generate_html(),
+            "path": self.get_path() + ".html",
         }
 
 
@@ -67,15 +69,15 @@ class Section:
             .replace("-", " ") \
             .upper()
 
-    def save_html(self, dist_path):
+    def save_html(self, dist_path, sitemap):
         for child in self.children:
-            child.save_html(dist_path)
+            child.save_html(dist_path, sitemap)
 
-    def to_dict(self):
+    def to_nav_dict(self):
         return {
             "type": "section",
             "title": self.title(),
-            "content": [p.to_dict() for p in self.children]
+            "children": [p.to_nav_dict() for p in self.children]
         }
 
 
