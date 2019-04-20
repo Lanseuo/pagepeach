@@ -27,7 +27,16 @@ class Page:
         return template.render(config=self.config, sitemap=sitemap, title=self.title(), content=self.content())
 
     def title(self):
-        return "Title"
+        with open(self.markdown_path, "r") as f:
+            first_line = f.readline()
+
+        if first_line.startswith("# "):
+            return first_line.lstrip("#").strip(" ")
+        else:
+            return self.markdown_path.name \
+                .replace(".md", "") \
+                .replace("-", " ") \
+                .title()
 
     def content(self):
         with open(self.markdown_path, "r") as f:
