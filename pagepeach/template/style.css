@@ -1,5 +1,6 @@
 :root {
-    --primary-color: #ffb977
+    --primary-color: #ffb977;
+    --primary-color-light: #fac695;
 }
 
 * {
@@ -20,7 +21,26 @@ body {
 nav {
     background: var(--primary-color);
     height: 100vh;
+}
+
+nav h1, nav p, nav a {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+nav .section-title {
+    font-weight: bold;
+}
+
+nav .page-link {
+    display: block;
+    color: black;
+    margin: 0;
     padding: 10px;
+}
+
+nav .page-link:hover {
+    background: var(--primary-color-light);
 }
 
 main {

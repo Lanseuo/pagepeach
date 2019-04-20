@@ -1,3 +1,4 @@
+{% import "includes.jinja" as includes %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,12 +12,20 @@
 
 <body>
     <nav>
-        <h1>{{ nav.title }}</h1>
-        {% for section in nav.link_sections %}
+        <h1>{{ title }}</h1>
+
         <section>
-            <p><strong>{{ section.title }}</strong></p>
-            {% for link in section.links %}
-            <a href="{{ link.href }}">{{ link.title }}</a>
+            {% for page in sitemap if page.type == "page" %}
+            {{ includes.nav_page(page) }}
+            {% endfor %}
+        </section>
+
+        {% for section in sitemap if section.type == "section" %}
+        <section>
+            <p class="section-title">{{ section.title }}</p>
+
+            {% for page in section.children %}
+            {{ includes.nav_page(page) }}
             {% endfor %}
         </section>
         {% endfor %}
