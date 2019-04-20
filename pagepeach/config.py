@@ -8,7 +8,7 @@ class Config:
     @staticmethod
     def parse_yaml(filepath):
         with open(filepath, "r") as f:
-            data = yaml.load(f)
+            data = yaml.load(f, Loader=yaml.FullLoader)
 
         return Config(
             name=data["general"]["name"]

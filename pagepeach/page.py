@@ -1,5 +1,6 @@
 import jinja2
 import os
+import markdown
 from pathlib import Path
 
 
@@ -7,7 +8,6 @@ class Page:
     def __init__(self, config, markdown_path):
         self.config = config
         self.markdown_path = markdown_path
-        self.nav = Nav(config)
 
     def read(self):
         with open(self.markdown_path, "r") as f:
@@ -21,10 +21,14 @@ class Page:
 
         template = template_env.get_template("index.html")
 
-        return template.render(sitemap=sitemap, title=self.title())
+        return template.render(sitemap=sitemap, title=self.title(), content=self.content())
 
     def title(self):
         return "Title"
+
+    def content(self):
+        with open(self.markdown_path, "r") as f:
+            return markdown.markdown(f.read())
 
     def get_path(self):
         return str(self.markdown_path).replace("docs/", "").replace(".md", "")
@@ -79,27 +83,3 @@ class Section:
             "title": self.title(),
             "children": [p.to_nav_dict() for p in self.children]
         }
-
-
-class Nav:
-    def __init__(self, config):
-        self.config = config
-        self.title = "Title"
-        self.link_sections = [
-            {
-                "title": "First",
-                "links": [
-                    {"title": "A", "href": "/a"},
-                    {"title": "A", "href": "/a"},
-                    {"title": "A", "href": "/a"}
-                ]
-            },
-            {
-                "title": "Second",
-                "links": [
-                    {"title": "A", "href": "/a"},
-                    {"title": "A", "href": "/a"},
-                    {"title": "A", "href": "/a"}
-                ]
-            }
-        ]
