@@ -14,17 +14,42 @@ a {
 
 body {
     display: grid;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 3fr 10fr;
+    grid-template-rows: 75px auto;
+    grid-template-areas:
+        "header header"
+        "nav main";
+    margin: 0;
+    height: calc(100vh - 75px);
+}
+
+header {
+    grid-area: header;
+    background: var(--primary-color);
+    box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 5px 15px;
+
+    display: grid;
+    place-items: center start;
+}
+
+header .title {
+    font-size: 1.5em;
     margin: 0;
 }
 
 nav {
-    background: var(--primary-color);
-    height: 100vh;
+    grid-area: nav;
+    height: calc(100vh - 75px);
+    color: white;
+    background: #343131;
+    padding-top: 35px;
+    box-shadow: 2px 0 2px -2px rgba(0, 0, 0, 0.6);
 }
 
 nav h1, nav p, nav a {
-    padding-left: 10px;
+    padding-left: 35px;
     padding-right: 10px;
 }
 
@@ -34,9 +59,10 @@ nav .section-title {
 
 nav .page-link {
     display: block;
-    color: black;
+    color: white;
     margin: 0;
     padding: 10px;
+    padding-left: 35px;
 }
 
 nav .page-link:hover {
@@ -44,7 +70,10 @@ nav .page-link:hover {
 }
 
 main {
-    padding: 10px;
+    grid-area: main;
+    padding: 25px;
+    height: calc(100vh - 75px);
+    overflow-y: scroll;
 }
 
 main article a {
@@ -62,6 +91,7 @@ main article pre code {
 
 main article h1 {
     font-size: 2em;
+    margin-top: 0;
 }
 
 main article h1,
