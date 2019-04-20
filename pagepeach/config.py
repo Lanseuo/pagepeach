@@ -2,8 +2,8 @@ import yaml
 
 
 class Config:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, general):
+        self.general = general
 
     @staticmethod
     def parse_yaml(filepath):
@@ -11,5 +11,11 @@ class Config:
             data = yaml.load(f, Loader=yaml.FullLoader)
 
         return Config(
-            name=data["general"]["name"]
+            general=GeneralConfig(data.get("general", {}))
         )
+
+
+class GeneralConfig:
+    def __init__(self, data):
+        self.name = data.get("name")
+        self.base_url = data.get("base_url", "").strip("/")

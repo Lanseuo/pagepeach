@@ -3,6 +3,8 @@ import os
 import markdown
 from pathlib import Path
 
+import utils
+
 
 class Page:
     def __init__(self, config, markdown_path):
@@ -18,10 +20,11 @@ class Page:
 
         template_loader = jinja2.FileSystemLoader(searchpath=str(template_path))
         template_env = jinja2.Environment(loader=template_loader)
+        template_env.globals.update(get_url=utils.get_url)
 
         template = template_env.get_template("index.html")
 
-        return template.render(sitemap=sitemap, title=self.title(), content=self.content())
+        return template.render(config=self.config, sitemap=sitemap, title=self.title(), content=self.content())
 
     def title(self):
         return "Title"
