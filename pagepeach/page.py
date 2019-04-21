@@ -55,11 +55,16 @@ class Page:
         with open(html_path, "w") as f:
             f.write(self.generate_html(sitemap))
 
-    def to_nav_dict(self):
+    def to_nav_dict(self, current_page):
+        active = False
+        if not isinstance(current_page, Section):
+            active = current_page.markdown_path == self.markdown_path
+
         return {
             "type": "page",
             "title": self.title(),
             "path": self.get_path() + ".html",
+            "active": active
         }
 
 
@@ -89,9 +94,9 @@ class Section:
         for child in self.children:
             child.save_html(dist_path, sitemap)
 
-    def to_nav_dict(self):
+    def to_nav_dict(self, current_page):
         return {
             "type": "section",
             "title": self.title(),
-            "children": [p.to_nav_dict() for p in self.children]
+            "children": [p.to_nav_dict(p) for p in self.children]
         }

@@ -24,9 +24,8 @@ class Build:
 
             pages.append(item)
 
-        sitemap = [p.to_nav_dict() for p in pages]
-
         for page in pages:
+            sitemap = [p.to_nav_dict(page) for p in pages]
             page.save_html(dist_path, sitemap)
 
     def prepare_dist(self, dist_path):
