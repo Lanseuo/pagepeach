@@ -8,6 +8,10 @@
     font-family: sans-serif;
 }
 
+.hide {
+    display: none;
+}
+
 a {
     text-decoration: none;
 }
@@ -75,9 +79,12 @@ nav .page-link.active {
 
 main {
     grid-area: main;
-    padding: 25px;
     height: calc(100vh - 75px);
     overflow-y: scroll;
+}
+
+main article {
+    padding: 25px;
 }
 
 main article a {
@@ -112,4 +119,15 @@ main article blockquote {
     color: #6a737d;
     padding: 0 1em;
     margin: auto 0;
+}
+
+main footer {
+    background: var(--primary-color);
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+}
+
+main footer a {
+    color: white;
 }

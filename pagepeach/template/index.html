@@ -37,6 +37,9 @@
         <article>
             {{ content }}
         </article>
+        <footer class="{{ 'hide' if not get_footer_html(config) }}">
+            {{ get_footer_html(config) }}
+        </footer>
     </main>
 </body>
 

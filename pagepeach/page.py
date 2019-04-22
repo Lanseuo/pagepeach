@@ -20,7 +20,10 @@ class Page:
 
         template_loader = jinja2.FileSystemLoader(searchpath=str(template_path))
         template_env = jinja2.Environment(loader=template_loader)
-        template_env.globals.update(get_url=utils.get_url)
+        template_env.globals.update(
+            get_url=utils.get_url,
+            get_footer_html=utils.get_footer_html
+        )
 
         template = template_env.get_template("index.html")
 
