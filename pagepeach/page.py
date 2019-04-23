@@ -1,6 +1,7 @@
+import copy
 import jinja2
-import os
 import markdown
+import os
 from pathlib import Path
 
 import utils
@@ -55,13 +56,28 @@ class Page:
             folder = html_path.parent
             folder.mkdir(exist_ok=True)
 
+        sitemap = self.add_active_page_to_sitemap(sitemap)
+
         with open(html_path, "w") as f:
             f.write(self.generate_html(sitemap))
 
-    def to_nav_dict(self, current_page):
+    def add_active_page_to_sitemap(self, sitemap):
+        # Prevent adding active attribute to global sitemap
+        sitemap_copy = copy.deepcopy(sitemap)
+
+        for page in sitemap_copy:
+            if page["type"] == "page":
+                if page["path"] == self.get_path() + ".html":
+                    page["active"] = True
+            else:
+                for subpage in page["children"]:
+                    if subpage["path"] == self.get_path() + ".html":
+                        subpage["active"] = True
+
+        return sitemap_copy
+
+    def to_nav_dict(self):
         active = False
-        if not isinstance(current_page, Section):
-            active = current_page.markdown_path == self.markdown_path
 
         return {
             "type": "page",
@@ -97,9 +113,9 @@ class Section:
         for child in self.children:
             child.save_html(dist_path, sitemap)
 
-    def to_nav_dict(self, current_page):
+    def to_nav_dict(self, ):
         return {
             "type": "section",
             "title": self.title(),
-            "children": [p.to_nav_dict(p) for p in self.children]
+            "children": [p.to_nav_dict() for p in self.children]
         }
