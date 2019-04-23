@@ -28,3 +28,4 @@ class ThemeConfig:
         self.copyright = data.get("copyright", "")
         self.hide_created_using = data.get("hide_created_using")
         self.primary_color = data.get("primary_color", "#ffb977")
+        self.header_links = data.get("header_links", [])

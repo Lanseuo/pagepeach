@@ -13,12 +13,20 @@
             --primary-color: {{ config.theme.primary_color }};
             --primary-color-light: {{ generate_primary_color_light(config.theme.primary_color) }};
         }
-    </style>
+        </style>
 </head>
 
 <body>
     <header>
         <p class="title">{{ config.general.name }}</p>
+
+        <div class="links">
+            {% for link in config.theme.header_links %}
+            <a href="{{ link.url }}" target="_blank">
+                {{ link.title }}
+            </a>
+            {% endfor %}
+        </div>
     </header>
 
     <nav>
