@@ -8,6 +8,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ title }} - {{ config.general.name }}</title>
     <link rel="stylesheet" href="{{ get_url('style.css', config) }}">
+    <style>
+        :root {
+            --primary-color: {{ config.theme.primary_color }};
+            --primary-color-light: {{ generate_primary_color_light(config.theme.primary_color) }};
+        }
+    </style>
 </head>
 
 <body>

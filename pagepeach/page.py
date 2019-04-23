@@ -23,7 +23,8 @@ class Page:
         template_env = jinja2.Environment(loader=template_loader)
         template_env.globals.update(
             get_url=utils.get_url,
-            get_footer_html=utils.get_footer_html
+            get_footer_html=utils.get_footer_html,
+            generate_primary_color_light=utils.generate_primary_color_light
         )
 
         template = template_env.get_template("index.html")

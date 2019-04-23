@@ -27,3 +27,4 @@ class ThemeConfig:
     def __init__(self, data):
         self.copyright = data.get("copyright", "")
         self.hide_created_using = data.get("hide_created_using")
+        self.primary_color = data.get("primary_color", "#ffb977")
