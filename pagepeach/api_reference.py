@@ -17,7 +17,7 @@ class ApiReferencePage(Page):
         return "api-reference"
 
     def content(self):
-        return "..."
+        return "This has not been implemented yet!"
 
 
 class Function:

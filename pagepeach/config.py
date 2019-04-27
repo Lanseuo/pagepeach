@@ -21,6 +21,7 @@ class GeneralConfig:
     def __init__(self, data):
         self.name = data.get("name")
         self.base_url = data.get("base_url", "").strip("/")
+        self.enable_api_reference = data.get("enable_api_reference", False)
 
 
 class ThemeConfig:

@@ -25,7 +25,8 @@ class Build:
 
             pages.append(item)
 
-        pages.append(ApiReferencePage(self.config))
+        if self.config.general.enable_api_reference:
+            pages.append(ApiReferencePage(self.config))
 
         sitemap = [p.to_nav_dict() for p in pages]
         for page in pages:
