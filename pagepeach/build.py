@@ -3,6 +3,7 @@ import shutil
 from pathlib import Path
 
 from page import Page, Section
+from api_reference import ApiReferencePage
 
 
 class Build:
@@ -23,6 +24,8 @@ class Build:
                 item = Page(self.config, child)
 
             pages.append(item)
+
+        pages.append(ApiReferencePage(self.config))
 
         sitemap = [p.to_nav_dict() for p in pages]
         for page in pages:

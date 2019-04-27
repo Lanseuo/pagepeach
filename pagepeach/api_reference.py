@@ -1,7 +1,23 @@
 import ast
 from pathlib import Path
 
+from page import Page
+
 FILENAME = Path("script.py")
+
+
+class ApiReferencePage(Page):
+    def __init__(self, config):
+        self.config = config
+
+    def title(self):
+        return "API Reference"
+
+    def get_path(self):
+        return "api-reference"
+
+    def content(self):
+        return "..."
 
 
 class Function:

@@ -78,13 +78,11 @@ class Page:
         return sitemap_copy
 
     def to_nav_dict(self):
-        active = False
-
         return {
             "type": "page",
             "title": self.title(),
             "path": self.get_path() + ".html",
-            "active": active
+            "active": False
         }
 
 
