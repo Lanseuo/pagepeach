@@ -1,4 +1,5 @@
 import yaml
+from pathlib import Path
 
 
 class Config:
@@ -22,6 +23,7 @@ class GeneralConfig:
         self.name = data.get("name")
         self.base_url = data.get("base_url", "").strip("/")
         self.enable_api_reference = data.get("enable_api_reference", False)
+        self.dist_path = Path(data.get("dist_path", "docs/dist"))
 
 
 class ThemeConfig:

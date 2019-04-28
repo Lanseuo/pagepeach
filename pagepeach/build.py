@@ -11,7 +11,7 @@ class Build:
         self.config = config
 
     def build(self, docs_path):
-        dist_path = Path("dist")
+        dist_path = self.config.general.dist_path
         self.prepare_dist(dist_path)
 
         pages = []
@@ -35,7 +35,7 @@ class Build:
     def prepare_dist(self, dist_path):
         template_path = Path(os.path.realpath(__file__)).parent / "template"
 
-        shutil.rmtree(dist_path)
+        shutil.rmtree(dist_path, ignore_errors=True)
         dist_path.mkdir(parents=True, exist_ok=True)
 
         shutil.copyfile(template_path / "style.css", dist_path / "style.css")

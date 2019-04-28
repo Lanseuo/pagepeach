@@ -41,6 +41,3 @@ def get_docstrings():
 
     functions = [Function(node) for node in module.body if isinstance(node, ast.FunctionDef)]
     classes = [Class(node) for node in module.body if isinstance(node, ast.ClassDef)]
-
-
-get_docstrings()
