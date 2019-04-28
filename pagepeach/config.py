@@ -1,6 +1,8 @@
 import yaml
 from pathlib import Path
 
+import utils
+
 
 class Config:
     def __init__(self, general, theme):
@@ -9,6 +11,11 @@ class Config:
 
     @staticmethod
     def parse_yaml(filepath):
+        if not filepath.exists():
+            utils.print_error(
+                "Unable to find the config file. Pagepeach needs a config file called 'docs/pagepeach.yaml' to proceed."
+            )
+            raise FileNotFoundError("Unable to find the config file")
         with open(filepath, "r") as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
 
